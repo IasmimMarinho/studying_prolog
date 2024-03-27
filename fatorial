@@ -1,0 +1,8 @@
+%Calculando fatorial%
+fat(0,1).
+fat(X,F) :- X > 0, F2 is X-1, fat(F2, Z), F is X*Z, !.
+
+/* Saída
+ * ? fat(0,X). X =1
+ * ? fat(3,X). X = 6
+ * ? fat(10,X). X = 3628800 */
