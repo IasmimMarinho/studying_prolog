@@ -15,7 +15,10 @@ não como fazer (DECLARATIVA).
 <b>cidade(salvador).</b></br>
 - Regras permitem a definição de novas relações a partir de relações existentes.</br>
 Elas têm a forma: <b>B :- A1,A2,...,AN. </b></br>
+#
+se (:-) e(,) ou(;). </b>
 
-se (:-) e(,) ou(;).
+Par consultar ou "fazer uma pergunta" é feito da seguinte forma: </b>
+<b>?- estado(bahia). </b></b>
 
 Testar código em: https://swish.swi-prolog.org/example/prolog_tutorials.swinb
