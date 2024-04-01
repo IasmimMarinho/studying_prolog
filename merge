@@ -1,0 +1,30 @@
+%----------merge%
+
+%caso base%
+merge([],L2, L2):-!.
+merge(L1,[], L1):-!.
+
+%caso recursivo%
+merge([X1|R1],[X2|R2],[X1|R]):- X1 =< X2, merge(R1, [X2|R2],R),!.
+merge([X1|R1], [X2|R2], [X2|R]):- merge([X1|R1],R2,R).
+
+%-----------divide duas listas%
+
+%caso base%
+divide([],[], []):-!.
+divide([X],[X], []):-!.
+
+%caso recursivo%
+divide([X,Y | R],[X|R1], [Y|R2]):- divide(R,R1,R2).
+
+%-----------merge sorte%
+
+%caso base%
+ms([],[]):-!.
+ms([X],[X]):-!.
+
+%caso recursivo%
+ms(L, LO):- divide(L, L1, L2), ms(L1,LO1), ms(L2,LO2), merge(LO1, LO2, LO).
+
+
+
