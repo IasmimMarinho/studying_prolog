@@ -1,0 +1,29 @@
+%VERIFICA SE ELEMENTO É MEMBRO DA LISTA
+membro(X,[X|_]):-!.
+membro(X,[_|R]) :- membro(X,R).
+
+%REMOVE UM ELEMENTO DA LISTA
+remova(_,[],[]) :- !.
+remova(X,[X|R],R) :- !.
+remova(X,[Y|R],[Y|W]) :- X \== Y, remova(X,R,W).
+
+%REMOVE TODAS AS OCORRENCIAS DE X DA LISTA
+removaN(_,[],[]) :- !.
+removaN(X,[X|R],W) :- removaN(X,R,W),!.
+removaN(X,[Y|R],[Y|W]) :- removaN(X,R,W).
+
+%INSERIR UM ELEMENTO NO FINAL LISTA
+insereF(X, [], [X]) :-!.
+insereF(X, [W|R], [W|Z]) :- insereF(X,R,Z).
+
+%INSERIR UM ELEMENTO NO INICIO DA LISTA
+insereI(X, [], [X]) :-!.
+insereI(X, [W|R], [X,W|R]).
+%OUTRA FORMA
+ins(X,L,R) :- remova(X,R,L).
+
+%INSERIR UM ELEMENTO EM TODAS AS POSIÇÕES DA LISTA
+insereT(X, [], [X]).
+insereT(X, [W|R], [X,W|R]).
+insereT(X, [W|R], [W|Z]) :- insereT(X,R,Z).
+
