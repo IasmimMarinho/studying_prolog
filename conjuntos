@@ -1,0 +1,12 @@
+membro(X,[X|_]):-!.
+membro(X,[_|R]) :- membro(X,R).
+
+%UNIÃO DE CONJUNTOS
+uniao([], L, L).
+uniao([X|R], L, W) :- membro(X, L), uniao(R,L,W),!.
+uniao([X|R], L, [X|W]) :- uniao(R,L,W).
+
+%INTERSEÇÃO DE CONJUNTOS
+inters([], _, []).
+inters([C1|R], C2, [C1|W]) :- membro(C1,C2), inters(R,C2,W)!.  
+inters([_|R], C2, W) :- inters(R,C2,W).
