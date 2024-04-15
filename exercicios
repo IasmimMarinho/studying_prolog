@@ -1,0 +1,33 @@
+%Q1 - concatenar listas%
+
+concat([], L2, L2).
+concat([X|R], L2, [X|W]) :- concat(R,L2,W).
+
+%Q2 - concatenar inversa%
+
+concat2(L1, L2, LR) :- concat(L2, L1, LR).
+
+
+%Q3 - concatenar lista de listas%
+
+concat3([], []).
+concat3([L|LR], LRT) :- concat3(LR, R), concat(L, R, LRT).
+
+%Q4 - mesclar elementos da lista%
+mesclar([], L2, L2) :-!.
+mesclar(L1, [], L1) :-!.
+mesclar([X|XR], [Y|YR], [X,Y|W]) :- mesclar(XR, YR, W).
+
+%Q5 - adcionar elementos ao final da lista%
+
+addfinal(Z, [], [Z]).
+addfinal(Z, [X|R], [X|W]) :- addfinal(Z,R,W).
+
+%Q6 - inverter uma lista%
+
+
+
+
+
+
+
