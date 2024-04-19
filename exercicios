@@ -22,11 +22,21 @@ mesclar([X|XR], [Y|YR], [X,Y|W]) :- mesclar(XR, YR, W).
 
 addfinal(Z, [], [Z]).
 addfinal(Z, [X|R], [X|W]) :- addfinal(Z,R,W).
+-
+addinicio(Z, [], [Z]).
+addinicio(Z, [X|R], [Z,X|R]).
 
 %Q6 - inverter uma lista%
+inverte([], []).
+inverte([X|R], LI) :- inverte(R, RI), addfinal(X, RI, LI) ,!.
 
-
-
+%Q8 - Parear uma lista parear(E,L,LP)
+parear(_, [], []) :- !.
+parear(E, [X|R], [[E,X]|S]) :- parear(E, R, S) ,!.
+--
+%separa uma lista em sublistas
+separa([], []).
+separa([X|Resto], [[X]|Subarrays]) :- separa(Resto, Subarrays).
 
 
 
