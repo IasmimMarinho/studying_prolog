@@ -18,6 +18,8 @@ mesclar([], L2, L2) :-!.
 mesclar(L1, [], L1) :-!.
 mesclar([X|XR], [Y|YR], [X,Y|W]) :- mesclar(XR, YR, W).
 
+% mesclar uma lista de listas?
+
 %Q5 - adcionar elementos ao final da lista%
 
 addfinal(Z, [], [Z]).
@@ -38,6 +40,23 @@ parear(E, [X|R], [[E,X]|S]) :- parear(E, R, S) ,!.
 separa([], []).
 separa([X|Resto], [[X]|Subarrays]) :- separa(Resto, Subarrays).
 
+%---------------Revisão avaliação
+%RECEBE UM NUMERO E INSERE EM UMA LISTA EM ORDEM DECRESCENTE
 
+liste(1, [1]). %caso base
+liste(N, [N|X]) :- N > 1, M is N-1, liste(M, X) ,!.
 
+%Compara se dois conjuntos são iguais
 
+iguais([],[]).
+iguais([X|R], C) :- member(X,C), delete(C,X,CR), iguais(R, CR),!.
+
+%decodifica lista
+
+parList([1,E], [E]):-!.
+parList([N,E], [E|R]):- N > 1, M is N-1, parList([M,E],R).
+
+decodifica([],[]):-!.
+decodifica([P|RL], L) :- parList(P,LI), decodifica(RL,LR), append(LI,LR,L),!.
+
+% Em uma função recursiva de calda a ultima clausula chama ela mesma.
