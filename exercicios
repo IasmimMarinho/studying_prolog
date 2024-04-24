@@ -41,12 +41,23 @@ separa([], []).
 separa([X|Resto], [[X]|Subarrays]) :- separa(Resto, Subarrays).
 
 %---------------Revisão avaliação
-%RECEBE UM NUMERO E INSERE EM UMA LISTA EM ORDEM DECRESCENTE
+%--RECEBE UM NUMERO E CRIA UMA LISTA EM ORDEM DECRESCENTE
 
 liste(1, [1]). %caso base
 liste(N, [N|X]) :- N > 1, M is N-1, liste(M, X) ,!.
 
-%Compara se dois conjuntos são iguais
+%--RECEBE UM NUMERO E CRIA UMA LISTA EM ORDEM CRESCENTE
+liste(N, L) :-
+    N > 0,
+    liste_helper(1, N, L).
+
+liste_helper(N, N, [N]).
+liste_helper(Start, End, [Start|T]) :-
+    Start < End,
+    Next is Start + 1,
+    liste_helper(Next, End, T).
+
+%--Compara se dois conjuntos são iguais
 
 iguais([],[]).
 iguais([X|R], C) :- member(X,C), delete(C,X,CR), iguais(R, CR),!.
