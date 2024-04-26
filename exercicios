@@ -17,8 +17,14 @@ concat3([L|LR], LRT) :- concat3(LR, R), concat(L, R, LRT).
 mesclar([], L2, L2) :-!.
 mesclar(L1, [], L1) :-!.
 mesclar([X|XR], [Y|YR], [X,Y|W]) :- mesclar(XR, YR, W).
+% Em uma função recursiva de calda a ultima clausula chama ela mesma.
+%-- JUNTAR DUAS LISTAS INTERCALANDO ELEMENTOS, COM APENAS 2 CLAUSULAS.
+juntar([], L2, L2).
+juntar([E1|R1], L2, [E1|W]):- juntar(L2,R1,W), !.
 
-% mesclar uma lista de listas?
+%-- JUNTAR UMA LISTA DE LISTAS INTERCALANDO ELEMENTOS (RECURSIVA DE CALDA).
+juntaLL([L], L).
+juntaLL([L1,L2|R], W) :- juntar(L1,L2,LM), juntaLL([LM|R],W) ,! .
 
 %Q5 - adcionar elementos ao final da lista%
 
@@ -36,7 +42,7 @@ inverte([X|R], LI) :- inverte(R, RI), addfinal(X, RI, LI) ,!.
 parear(_, [], []) :- !.
 parear(E, [X|R], [[E,X]|S]) :- parear(E, R, S) ,!.
 --
-%separa uma lista em sublistas
+%-- Separa uma lista em sublistas
 separa([], []).
 separa([X|Resto], [[X]|Subarrays]) :- separa(Resto, Subarrays).
 
@@ -57,12 +63,12 @@ liste_helper(Start, End, [Start|T]) :-
     Next is Start + 1,
     liste_helper(Next, End, T).
 
-%--Compara se dois conjuntos são iguais
+%-- Compara se dois conjuntos são iguais
 
 iguais([],[]).
 iguais([X|R], C) :- member(X,C), delete(C,X,CR), iguais(R, CR),!.
 
-%decodifica lista
+%-- Decodifica lista
 
 parList([1,E], [E]):-!.
 parList([N,E], [E|R]):- N > 1, M is N-1, parList([M,E],R).
@@ -70,4 +76,19 @@ parList([N,E], [E|R]):- N > 1, M is N-1, parList([M,E],R).
 decodifica([],[]):-!.
 decodifica([P|RL], L) :- parList(P,LI), decodifica(RL,LR), append(LI,LR,L),!.
 
-% Em uma função recursiva de calda a ultima clausula chama ela mesma.
+%-- DIVIDE UMA LISTA L EM L1 E L2.
+
+lengthN([], 0).
+lengthN([_|R], N1) :- lengthN(R, N), N1 is N + 1.
+
+divide([], _, [], []) :- !.
+divide([E|R], N, [E|L1], L2) :- N > 0, 
+    							lengthN([E|R], N1), 
+    							N=<N1, 
+    							M is N-1, 
+    							divide(R, M, L1, L2), !.
+divide([E|R], N, L1, [E|L2]) :- lengthN([E|R], N1), 
+    							N=<N1, 
+    							divide(R, N, L1, L2) ,! .
+
+%divide([a,b,c,d,e,f,g,h,i,k],5,L1,L2).
