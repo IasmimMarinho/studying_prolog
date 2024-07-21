@@ -89,7 +89,7 @@ pares([_],[]).
 pares([X,Y|R],[[X,Y]|LL]) :-
      parear(X,R,L1),parear(Y,R,L2),pares(R,L3),concatenar([L1,L2,L3],LL).
 
-%% SoluÁ„o alternativa que retorna todos os pares, um a um
+%% Solu√ß√£o alternativa que retorna todos os pares, um a um
 
 pares2([X,Y|_],[X,Y]).
 pares2([X,_|R],W) :- parear2(X,R,W).
@@ -153,7 +153,7 @@ mergesort(L,LO) :- divide(L,L1,L2),
                    mergesort(L2,LO2),
                    mescle(LO1,LO2,LO).
 
-% Q 16 - Mescle Vers„o 2
+% Q 16 - Mescle Vers√£o 2
 %
 mescle2([],L2,_,L2) :- !.
 
@@ -166,7 +166,7 @@ mescle2([E1|R1], [E2|R2], FC , [E2|W]) :- mescle2([E1|R1], R2, FC, W).
 
 
 
-% Q 16 - Mescle Vers„o 3
+% Q 16 - Mescle Vers√£o 3
 %
 
 mescle3([],L2,_,_,L2) :- !.
@@ -182,7 +182,7 @@ mescle3([E1|R1], [E2|R2], FC, CC, [E1|W]) :-
 mescle3([E1|R1], [E2|R2], FC , CC, [E2|W]) :- mescle3([E1|R1], R2, FC, CC, W).
 
 
-% Q 17 - MergeSort vers„o 3
+% Q 17 - MergeSort vers√£o 3
 %
 
 mergesort3(L,LO) :- mergesort3(L,=<,identidade,LO).
@@ -199,3 +199,53 @@ mergesort3(L,FC,CC,LO) :- divide(L,L1,L2),
 
 
 first([E|_],E).
+
+% liste(+N,?L)%
+liste(1, [1]) :-!.
+liste(N, [N|R]) :- C is N-1, liste(C, R).
+
+%iguais(?C1,?C2)%
+iguais([],[]) :-!.
+iguais([X|R], L2) :- 
+    member(X, L2),
+    delete(L2, X, L3),
+    iguais(R, L3),!.
+
+%oculte(P, L, -L)
+%
+oculte(_, [], []).
+oculte(P, [P|R], [xxx|W]) :- oculte(P,R,W) ,!.
+oculte(P, [X|R], [X|W]) :- oculte(P,R,W).
+
+%intercala(X,Y,N,L)
+%
+intercale(_, _, 0, []):-!.
+intercale(X, Y, N, [X|W]) :- C is N-1, intercale(Y,X,C,W) ,!.
+
+% sumarize(L,L1,L2) 
+%
+sumarize([], [], []).
+sumarize([X|R], [X|W], [C|CW]) :- conteX(X, [X|R], C, S), sumarize(S, W, CW).
+
+conteX(_, [], 0, []) :-!.
+conteX(X, [X|R], C, W) :- conteX(X, R, Ci, W), C is Ci + 1 ,!.
+conteX(X, [Y|R], C, [Y|W]) :- conteX(X, R, C, W).
+
+% sumarize(L,L1,L2) Recursiva de calda
+%
+sumarize2([], [], []).
+sumarize2([X|R], [X|W], [C|CW]):- conte2(X,R,1,C,S), sumarize(S, W, CW).
+
+conte2(_, [], C, C, []) :-!.
+conte2(X, [X|R], C, CR, W) :- Ci is C+1, conte2(X, R, Ci, CR, W) ,!.
+conte2(X, [Y|R], C, CR, [Y|W]) :- conte2(X, R, C, CR, W).
+
+% empacote(L,LL)
+% retorna lista empacotando elementos iguais em sublistas
+
+empacote([], []) :-!.
+empacote([X|R], [C|W]) :- findeX(X, [X|R], C, S), empacote(S, W) ,!.
+
+findeX(_, [], [], []) :-!.
+findeX(X, [X|R], [X|RW], W) :- findeX(X, R, RW, W) ,!.
+findeX(X, [Y|R], RW, [Y|W]) :- findeX(X, R, RW, W).
